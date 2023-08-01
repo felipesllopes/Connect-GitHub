@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+import styled from "styled-components/native";
+import Route from "./src/routes";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <Container>
+      <Route />
       <StatusBar />
-    </View>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+const Container = styled(NavigationContainer)`
+  flex: 1;
+`;
