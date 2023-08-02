@@ -9,8 +9,8 @@ import Profile from "../screens/Profile";
 const Stack = createNativeStackNavigator();
 
 type StackNavigation = {
-  Home: undefined,
-  Profile: undefined;
+  Home: undefined;
+  Profile: { item: object | null };
 };
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;

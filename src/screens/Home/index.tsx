@@ -11,6 +11,7 @@ interface Props {
   login: string;
   name: string;
   location: string;
+  message: string;
 }
 
 const Home = () => {
@@ -35,7 +36,7 @@ const Home = () => {
   };
 
   function handleNavigation() {
-    navigation.navigate("Profile");
+    navigation.navigate("Profile", { item: user });
   }
 
   return (
@@ -125,4 +126,11 @@ const UserLogin = styled.Text`
 
 const UserLocation = styled.Text`
   font-size: 16px;
+`;
+
+const Message = styled.Text`
+  font-size: 19px;
+  color: white;
+  text-align: center;
+  font-style: italic;
 `;
