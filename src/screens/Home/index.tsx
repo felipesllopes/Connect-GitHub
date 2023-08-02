@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Keyboard, View } from "react-native";
 import { styled } from "styled-components/native";
+import ContainerUser from "../../components/ContainerUser";
 import { StackTypes } from "../../routes";
 import api from "../../service/api";
 
@@ -14,7 +15,7 @@ interface Props {
   message: string;
 }
 
-const Home = () => {
+const Home: React.FC<Props> = () => {
   const [name, setName] = useState("");
   const [user, setUser] = useState<Props | null>(null);
   const [msgErro, setMsgErr] = useState("");
@@ -60,16 +61,9 @@ const Home = () => {
       </Header>
 
       {user ? (
-        <ContainerData activeOpacity={0.8} onPress={handleNavigation}>
-          <UserPhoto source={{ uri: user.avatar_url }} />
-          <View>
-            <UserName>{user.name}</UserName>
-            <Text>{user.login}</Text>
-            <Text>
-              <Ionicons name="location" size={20} /> {user.location}
-            </Text>
-          </View>
-        </ContainerData>
+        <View>
+          <ContainerUser user={user} handleNavigation={handleNavigation} />
+        </View>
       ) : loading ? (
         <Loading size={40} color={"blue"} />
       ) : (
@@ -115,34 +109,6 @@ const Input = styled.TextInput`
 
 const Button = styled.TouchableOpacity`
   padding: 5px 12px;
-`;
-
-const ContainerData = styled.TouchableOpacity`
-  background-color: white;
-  margin: 10px;
-  padding: 3px;
-  border-radius: 10px;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  border-width: 2px;
-  background-color: aliceblue;
-`;
-
-const UserPhoto = styled.Image`
-  height: 70px;
-  width: 70px;
-  border-radius: 50px;
-  margin: 0 15px 0 5px;
-`;
-
-const UserName = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const Text = styled.Text`
-  font-size: 16px;
 `;
 
 const Loading = styled.ActivityIndicator`

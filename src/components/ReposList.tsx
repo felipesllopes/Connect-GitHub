@@ -2,8 +2,7 @@ import { format } from "date-fns";
 import { Linking, View } from "react-native";
 import { styled } from "styled-components/native";
 
-const ReposList = ({ item }) => {
-  
+const ReposList: React.FC = ({ item }) => {
   const click = async () => {
     console.log(item.html_url);
     const supported = await Linking.canOpenURL(item.html_url);
