@@ -3,6 +3,7 @@ import { Linking, View } from "react-native";
 import { styled } from "styled-components/native";
 
 const ReposList = ({ item }) => {
+  
   const click = async () => {
     console.log(item.html_url);
     const supported = await Linking.canOpenURL(item.html_url);
@@ -22,7 +23,9 @@ const ReposList = ({ item }) => {
       </Box>
       {item.description !== null ? (
         <Description>Descrição: {item.description}</Description>
-      ) : <View/>}
+      ) : (
+        <View />
+      )}
       <Data>
         Atualização: {format(new Date(item.pushed_at), "dd/MM/yyyy HH:mm")}
       </Data>

@@ -22,11 +22,14 @@ const Profile: React.FC = () => {
         setRepos(repos.data);
       });
     })();
-    console.log(repos);
   }, []);
 
   const renderList = ({ item }) => {
     return <ReposList item={item} />;
+  };
+
+  const renderListMessage = () => {
+    return <Loading size={40} color={"red"} />;
   };
 
   return (
@@ -36,14 +39,18 @@ const Profile: React.FC = () => {
           <PhotoUser source={{ uri: data.avatar_url }} />
 
           <ContainerInfo>
-            <Name>{data.name}</Name>
-            <Login>{data.login}</Login>
-            <Location>
-              <Ionicons name="location" size={19} /> {data.location}
-            </Location>
+            {data.name !== null && <Name>{data.name}</Name>}
+
             <Id>Id: {data.id}</Id>
+
+            {data.location !== null && (
+              <Location>
+                <Ionicons name="location" size={19} /> {data.location}
+              </Location>
+            )}
           </ContainerInfo>
         </Container2>
+
         <ContainerAdc>
           <BoxInfo>
             <InfoNum>{data.followers}</InfoNum>
@@ -65,6 +72,7 @@ const Profile: React.FC = () => {
         data={repos}
         renderItem={renderList}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={renderListMessage}
       />
     </Container>
   );
@@ -74,67 +82,62 @@ export default Profile;
 
 const Container = styled.View`
   flex: 1;
-  padding: 10px;
-  background-color: blueviolet;
-`;
-
-const Container2 = styled.View`
-  border-width: 2px;
-  border-color: yellow;
-  flex-direction: row;
+  background-color: #24292e;
 `;
 
 const ContainerUser = styled.View`
-  border-width: 2px;
-  border-color: green;
+  background-color: white;
+  padding-bottom: 10px;
+  border-bottom-width: 2px;
+`;
+
+const Container2 = styled.View`
+  flex-direction: row;
 `;
 
 const PhotoUser = styled.Image`
-  height: 110px;
-  width: 110px;
-  border-radius: 100px;
-  margin: 10px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  margin: 15px;
 `;
 
 const ContainerInfo = styled.View`
-  border-width: 2px;
-  border-color: blue;
   flex: 1;
+  padding: 7px;
 `;
 
 const Name = styled.Text`
   font-size: 22px;
   font-weight: bold;
-`;
-
-const Login = styled.Text`
-  font-size: 17px;
-`;
-
-const Location = styled.Text`
-  font-size: 17px;
-  margin: 5px 0;
+  margin-top: 5px;
 `;
 
 const Id = styled.Text`
   font-size: 16px;
+  margin-top: 5px;
+`;
+
+const Location = styled.Text`
+  font-size: 17px;
+  margin-top: 5px;
 `;
 
 const ContainerAdc = styled.View`
-  border-width: 2px;
-  border-color: red;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 10px;
+  margin-top: 5px;
 `;
 
 const BoxInfo = styled.View`
-  border-width: 2px;
-  border-color: orange;
   align-items: center;
 `;
 
 const InfoNum = styled.Text`
   font-size: 22px;
   font-weight: bold;
+`;
+
+const Loading = styled.ActivityIndicator`
+  margin-top: 50%;
 `;

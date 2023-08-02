@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Image, Keyboard, View } from "react-native";
+import { Keyboard, View } from "react-native";
 import { styled } from "styled-components/native";
 import { StackTypes } from "../../routes";
 import api from "../../service/api";
@@ -17,22 +17,25 @@ interface Props {
 const Home = () => {
   const [name, setName] = useState("");
   const [user, setUser] = useState<Props | null>(null);
+  const [msgErro, setMsgErr] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation<StackTypes>();
 
   const handleSearch = async () => {
     Keyboard.dismiss();
     setUser(null);
+    setLoading(true);
 
     await api
       .get<Props>(`/${name}`)
       .then((item) => {
         setUser(item.data);
-        console.log(item.data);
       })
       .catch((e) => {
-        console.log("Erro");
+        setMsgErr("Nenhum usuário encontrado.");
       });
+    setLoading(false);
   };
 
   function handleNavigation() {
@@ -41,26 +44,36 @@ const Home = () => {
 
   return (
     <Container>
-      <Logo source={require("../../assets/logo.png")} />
+      <Header>
+        <Logo source={require("../../assets/logo.png")} />
 
-      <BoxInput>
-        <Input value={name} placeholder="Search user" onChangeText={setName} />
-        <Button onPress={handleSearch} activeOpacity={0.6}>
-          <Ionicons name="search" size={26} />
-        </Button>
-      </BoxInput>
+        <BoxInput>
+          <Input
+            value={name}
+            placeholder="Search user"
+            onChangeText={setName}
+          />
+          <Button onPress={handleSearch} activeOpacity={0.6}>
+            <Ionicons name="search" size={26} />
+          </Button>
+        </BoxInput>
+      </Header>
 
-      {user && (
+      {user ? (
         <ContainerData activeOpacity={0.8} onPress={handleNavigation}>
           <UserPhoto source={{ uri: user.avatar_url }} />
           <View>
             <UserName>{user.name}</UserName>
-            <UserLogin>{user.login}</UserLogin>
-            <UserLocation>
+            <Text>{user.login}</Text>
+            <Text>
               <Ionicons name="location" size={20} /> {user.location}
-            </UserLocation>
+            </Text>
           </View>
         </ContainerData>
+      ) : loading ? (
+        <Loading size={40} color={"blue"} />
+      ) : (
+        <NotFound>{msgErro}</NotFound>
       )}
     </Container>
   );
@@ -70,11 +83,16 @@ export default Home;
 
 const Container = styled.View`
   flex: 1;
-  padding: 10px;
-  background-color: #24292e;
+  background-color: white;
 `;
 
-const Logo = styled(Image)`
+const Header = styled.View`
+  background-color: #24292e;
+  padding: 10px;
+  padding-bottom: 15px;
+`;
+
+const Logo = styled.Image`
   height: 160px;
   width: 160px;
   align-self: center;
@@ -107,8 +125,11 @@ const ContainerData = styled.TouchableOpacity`
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  border-width: 2px;
+  background-color: aliceblue;
 `;
-const UserPhoto = styled(Image)`
+
+const UserPhoto = styled.Image`
   height: 70px;
   width: 70px;
   border-radius: 50px;
@@ -120,17 +141,17 @@ const UserName = styled.Text`
   font-weight: bold;
 `;
 
-const UserLogin = styled.Text`
+const Text = styled.Text`
   font-size: 16px;
 `;
 
-const UserLocation = styled.Text`
-  font-size: 16px;
+const Loading = styled.ActivityIndicator`
+  margin-top: 20px;
 `;
 
-const Message = styled.Text`
+const NotFound = styled.Text`
   font-size: 19px;
-  color: white;
   text-align: center;
   font-style: italic;
+  margin-top: 30px;
 `;
