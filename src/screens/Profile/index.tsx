@@ -1,7 +1,8 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, Text } from "react-native";
 import { styled } from "styled-components/native";
 import ReposList from "../../components/ReposList";
 
@@ -10,7 +11,6 @@ const Profile: React.FC = () => {
   const route = useRoute();
   const data = route.params?.item;
   const [repos, setRepos] = useState([]);
-  const leg = [10, 2, 309, 30, 40, 39];
 
   useEffect(() => {
     navigation.setOptions({
@@ -18,7 +18,7 @@ const Profile: React.FC = () => {
     });
 
     (async () => {
-      await axios.get<List>(data.repos_url).then((repos) => {
+      await axios.get(data.repos_url).then((repos) => {
         setRepos(repos.data);
       });
     })();
@@ -31,16 +31,34 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <PhotoUser source={{ uri: data.avatar_url }} />
+      <ContainerUser>
+        <Container2>
+          <PhotoUser source={{ uri: data.avatar_url }} />
 
-      <Text>{data.name}</Text>
-      <Text>{data.login}</Text>
-      <Text>{data.location}</Text>
-      <Text>
-        {data.followers} | {data.following}
-      </Text>
-      <Text>{data.id}</Text>
-      <Text>{data.public_repos}</Text>
+          <ContainerInfo>
+            <Name>{data.name}</Name>
+            <Login>{data.login}</Login>
+            <Location>
+              <Ionicons name="location" size={19} /> {data.location}
+            </Location>
+            <Id>Id: {data.id}</Id>
+          </ContainerInfo>
+        </Container2>
+        <ContainerAdc>
+          <BoxInfo>
+            <InfoNum>{data.followers}</InfoNum>
+            <Text>Seguidores</Text>
+          </BoxInfo>
+          <BoxInfo>
+            <InfoNum>{data.following}</InfoNum>
+            <Text>Seguindo</Text>
+          </BoxInfo>
+          <BoxInfo>
+            <InfoNum>{data.public_repos}</InfoNum>
+            <Text>Repositórios</Text>
+          </BoxInfo>
+        </ContainerAdc>
+      </ContainerUser>
 
       <FlatList
         keyExtractor={(item) => item.id}
@@ -60,8 +78,63 @@ const Container = styled.View`
   background-color: blueviolet;
 `;
 
+const Container2 = styled.View`
+  border-width: 2px;
+  border-color: yellow;
+  flex-direction: row;
+`;
+
+const ContainerUser = styled.View`
+  border-width: 2px;
+  border-color: green;
+`;
+
 const PhotoUser = styled.Image`
-  height: 150px;
-  width: 150px;
+  height: 110px;
+  width: 110px;
   border-radius: 100px;
+  margin: 10px;
+`;
+
+const ContainerInfo = styled.View`
+  border-width: 2px;
+  border-color: blue;
+  flex: 1;
+`;
+
+const Name = styled.Text`
+  font-size: 22px;
+  font-weight: bold;
+`;
+
+const Login = styled.Text`
+  font-size: 17px;
+`;
+
+const Location = styled.Text`
+  font-size: 17px;
+  margin: 5px 0;
+`;
+
+const Id = styled.Text`
+  font-size: 16px;
+`;
+
+const ContainerAdc = styled.View`
+  border-width: 2px;
+  border-color: red;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+`;
+
+const BoxInfo = styled.View`
+  border-width: 2px;
+  border-color: orange;
+  align-items: center;
+`;
+
+const InfoNum = styled.Text`
+  font-size: 22px;
+  font-weight: bold;
 `;

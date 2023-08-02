@@ -1,4 +1,5 @@
-import { View, Text, TouchableOpacity, Linking } from "react-native";
+import { format } from "date-fns";
+import { Linking, View } from "react-native";
 import { styled } from "styled-components/native";
 
 const ReposList = ({ item }) => {
@@ -15,11 +16,19 @@ const ReposList = ({ item }) => {
 
   return (
     <Container onPress={click} activeOpacity={0.8}>
-      <Name>{item.name}</Name>
-      <Language>{item.language}</Language>
-      <Description>Descrição: {item.description}</Description>
-      <Text>{item.created_at}</Text>
-      <Text>{item.updated_at}</Text>
+      <Box>
+        <Name>{item.name}</Name>
+        <Language>{item.language}</Language>
+      </Box>
+      {item.description !== null ? (
+        <Description>Descrição: {item.description}</Description>
+      ) : <View/>}
+      <Data>
+        Atualização: {format(new Date(item.pushed_at), "dd/MM/yyyy HH:mm")}
+      </Data>
+      <Data>
+        Criação: {format(new Date(item.created_at), "dd/MM/yyyy HH:mm")}
+      </Data>
     </Container>
   );
 };
@@ -27,10 +36,16 @@ const ReposList = ({ item }) => {
 export default ReposList;
 
 const Container = styled.TouchableOpacity`
-  background-color: aqua;
+  background-color: #f5fffa;
   margin: 10px;
   border-radius: 20px;
   padding: 10px;
+`;
+
+const Box = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 const Name = styled.Text`
@@ -45,4 +60,8 @@ const Language = styled.Text`
 
 const Description = styled.Text`
   font-size: 16px;
+`;
+
+const Data = styled.Text`
+  font-size: 15px;
 `;
