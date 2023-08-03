@@ -1,21 +1,11 @@
-import {
-  NativeStackNavigationProp,
-  createNativeStackNavigator,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
-type StackNavigation = {
-  Home: undefined;
-  Profile: { item: object | null };
-};
-
-export type StackTypes = NativeStackNavigationProp<StackNavigation>;
-
-const Route = () => {
+const Route: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen

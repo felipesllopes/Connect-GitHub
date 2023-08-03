@@ -1,50 +1,38 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Keyboard, View } from "react-native";
 import { styled } from "styled-components/native";
 import ContainerUser from "../../components/ContainerUser";
-import { StackTypes } from "../../routes";
+import DrawerBack from "../../components/DrawerBack";
+import { UserProps } from "../../components/props";
 import api from "../../service/api";
 
-interface Props {
-  avatar_url: string;
-  login: string;
-  name: string;
-  location: string;
-  message: string;
-}
+const Home: React.FC = () => {
+  const [name, setName] = useState<string>("");
+  const [user, setUser] = useState<UserProps[]>([]);
 
-const Home: React.FC<Props> = () => {
-  const [name, setName] = useState("");
-  const [user, setUser] = useState<Props | null>(null);
-  const [msgErro, setMsgErr] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const navigation = useNavigation<StackTypes>();
+  const [msgErro, setMsgErr] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearch = async () => {
     Keyboard.dismiss();
-    setUser(null);
+    setUser([]);
     setLoading(true);
 
-    await api
-      .get<Props>(`/${name}`)
-      .then((item) => {
-        setUser(item.data);
-      })
-      .catch((e) => {
-        setMsgErr("Nenhum usuário encontrado.");
-      });
-    setLoading(false);
+    try {
+      const response = await api.get<UserProps[]>(`/${name}`);
+      const item: UserProps[] = response.data;
+      setUser(item);
+    } catch (e) {
+      setMsgErr("Nenhum usuário encontrado.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  function handleNavigation() {
-    navigation.navigate("Profile", { item: user });
-  }
 
   return (
     <Container>
+      <DrawerBack />
       <Header>
         <Logo source={require("../../assets/logo.png")} />
 
@@ -60,9 +48,9 @@ const Home: React.FC<Props> = () => {
         </BoxInput>
       </Header>
 
-      {user ? (
+      {user.length != 0 ? (
         <View>
-          <ContainerUser user={user} handleNavigation={handleNavigation} />
+          <ContainerUser user={user} />
         </View>
       ) : loading ? (
         <Loading size={40} color={"blue"} />
@@ -77,7 +65,7 @@ export default Home;
 
 const Container = styled.View`
   flex: 1;
-  background-color: white;
+  background-color: #f5fffa;
 `;
 
 const Header = styled.View`

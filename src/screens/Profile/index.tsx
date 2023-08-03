@@ -1,30 +1,39 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FlatList, Text } from "react-native";
 import { styled } from "styled-components/native";
 import ReposList from "../../components/ReposList";
+import { UserProps } from "../../components/props";
+
+type UserDetailsRouteProp = RouteProp<
+  { Profile: { user: UserProps } },
+  "Profile"
+>;
 
 const Profile: React.FC = () => {
+  
+  const route = useRoute<UserDetailsRouteProp>();
   const navigation = useNavigation();
-  const route = useRoute();
-  const data = route.params?.item;
+  const { user } = route.params;
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
     navigation.setOptions({
-      title: route.params?.item.login,
+      title: user?.name ? user?.name : "Usuário",
     });
-
     (async () => {
-      await axios.get(data.repos_url).then((repos) => {
-        setRepos(repos.data);
-      });
+      try {
+        const response = await axios.get(user.repos_url);
+        setRepos(response.data);
+      } catch (e) {
+        console.log("Erro: " + e);
+      }
     })();
   }, []);
 
-  const renderList = ({ item }) => {
+  const renderList = ({ item }: { item: UserProps }) => {
     return <ReposList item={item} />;
   };
 
@@ -36,16 +45,16 @@ const Profile: React.FC = () => {
     <Container>
       <ContainerUser>
         <Container2>
-          <PhotoUser source={{ uri: data.avatar_url }} />
+          <PhotoUser source={{ uri: user?.avatar_url }} />
 
           <ContainerInfo>
-            {data.name !== null && <Name>{data.name}</Name>}
+            <User>{user?.login}</User>
 
-            <Id>Id: {data.id}</Id>
+            <Id>Id: {user?.id}</Id>
 
-            {data.location !== null && (
+            {user?.location !== null && (
               <Location>
-                <Ionicons name="location" size={19} /> {data.location}
+                <Ionicons name="location" size={19} /> {user?.location}
               </Location>
             )}
           </ContainerInfo>
@@ -53,22 +62,22 @@ const Profile: React.FC = () => {
 
         <ContainerAdc>
           <BoxInfo>
-            <InfoNum>{data.followers}</InfoNum>
+            <InfoNum>{user?.followers}</InfoNum>
             <Text>Seguidores</Text>
           </BoxInfo>
           <BoxInfo>
-            <InfoNum>{data.following}</InfoNum>
+            <InfoNum>{user?.following}</InfoNum>
             <Text>Seguindo</Text>
           </BoxInfo>
           <BoxInfo>
-            <InfoNum>{data.public_repos}</InfoNum>
+            <InfoNum>{user?.public_repos}</InfoNum>
             <Text>Repositórios</Text>
           </BoxInfo>
         </ContainerAdc>
       </ContainerUser>
 
       <FlatList
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         data={repos}
         renderItem={renderList}
         showsVerticalScrollIndicator={false}
@@ -78,15 +87,13 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
-
 const Container = styled.View`
   flex: 1;
   background-color: #24292e;
 `;
 
 const ContainerUser = styled.View`
-  background-color: white;
+  background-color: #f5fffa;
   padding-bottom: 10px;
   border-bottom-width: 2px;
 `;
@@ -107,9 +114,8 @@ const ContainerInfo = styled.View`
   padding: 7px;
 `;
 
-const Name = styled.Text`
+const User = styled.Text`
   font-size: 22px;
-  font-weight: bold;
   margin-top: 5px;
 `;
 
@@ -141,3 +147,5 @@ const InfoNum = styled.Text`
 const Loading = styled.ActivityIndicator`
   margin-top: 50%;
 `;
+
+export default Profile;

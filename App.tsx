@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
+import "react-native-gesture-handler";
 import styled from "styled-components/native";
-import Route from "./src/routes";
+import DrawerRoute from "./src/routes/drawerRoute";
 
 export default function App() {
   return (
     <Container>
-      <Route />
+      <DrawerRoute />
       <StatusBar />
     </Container>
   );

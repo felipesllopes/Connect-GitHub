@@ -2,9 +2,8 @@ import { format } from "date-fns";
 import { Linking, View } from "react-native";
 import { styled } from "styled-components/native";
 
-const ReposList: React.FC = ({ item }) => {
+const ReposList: React.FC<any> = ({ item }) => {
   const click = async () => {
-    console.log(item.html_url);
     const supported = await Linking.canOpenURL(item.html_url);
 
     if (supported) {
@@ -39,7 +38,7 @@ export default ReposList;
 
 const Container = styled.TouchableOpacity`
   background-color: #f5fffa;
-  margin: 10px;
+  margin: 10px 10px 0 10px;
   border-radius: 20px;
   padding: 10px;
 `;
