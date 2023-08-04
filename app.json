@@ -22,8 +22,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#24292e"
+<<<<<<< HEAD
       },
       "package": "com.felipelopes.HUBusca"
+=======
+      }
+>>>>>>> f8259ff27d629a3fa415df7a0b1ffa79959b30a4
     },
     "web": {
       "favicon": "./assets/favicon.png"

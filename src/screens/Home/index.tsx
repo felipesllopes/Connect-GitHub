@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <Container>
       <DrawerBack />
       <Header>
-        <Logo source={require("../../assets/logo3.png")} resizeMode="contain" />
+        <Logo source={require("../../assets/logo.png")} resizeMode="contain" />
 
         <BoxInput>
           <Input

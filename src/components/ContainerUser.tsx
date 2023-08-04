@@ -46,7 +46,11 @@ const UserPhoto = styled.Image`
   height: 70px;
   width: 70px;
   border-radius: 50px;
+<<<<<<< HEAD
   margin: 5px 15px 0 5px;
+=======
+  margin: 7px 15px 0 5px;
+>>>>>>> f8259ff27d629a3fa415df7a0b1ffa79959b30a4
 `;
 
 const UserName = styled.Text`
