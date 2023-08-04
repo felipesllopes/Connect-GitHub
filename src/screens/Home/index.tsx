@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <Container>
       <DrawerBack />
       <Header>
-        <Logo source={require("../../assets/logo3.png")} resizeMode="contain" />
+        <Logo source={require("../../assets/logo.png")} resizeMode="contain" />
 
         <BoxInput>
           <Input
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #daa520;
 `;

@@ -5,7 +5,7 @@ import Profile from "../screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
-const Route: React.FC = () => {
+const StackRoute: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -14,9 +14,17 @@ const Route: React.FC = () => {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerStyle: { backgroundColor: "#24292e" },
+          headerTitleStyle: { color: "#FFF" },
+          headerTintColor: "#FFF",
+        }}
+      />
     </Stack.Navigator>
   );
 };
 
-export default Route;
+export default StackRoute;

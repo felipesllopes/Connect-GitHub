@@ -16,9 +16,11 @@ const ContainerUser: React.FC<any> = ({ user }: { user: UserProps }) => {
     <Container activeOpacity={0.8} onPress={handleNavigation}>
       <UserPhoto source={{ uri: user.avatar_url }} />
       <View>
-        <UserName>{user.name}</UserName>
+        <UserName style={{ display: user.name ? "flex" : "none" }}>
+          {user.name}
+        </UserName>
         <Text>{user.login}</Text>
-        <Text>
+        <Text style={{ display: user.location ? "flex" : "none" }}>
           <Ionicons name="location" size={20} /> {user.location}
         </Text>
       </View>
@@ -44,7 +46,7 @@ const UserPhoto = styled.Image`
   height: 70px;
   width: 70px;
   border-radius: 50px;
-  margin: 0 15px 0 5px;
+  margin: 7px 15px 0 5px;
 `;
 
 const UserName = styled.Text`

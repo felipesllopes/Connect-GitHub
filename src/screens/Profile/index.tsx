@@ -87,7 +87,7 @@ const Profile: React.FC = () => {
   );
 };
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #24292e;
 `;
