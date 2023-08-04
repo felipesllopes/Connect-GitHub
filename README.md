@@ -1,4 +1,4 @@
-#HUBusca
+# HUBusca
 
 Esse app tem a finalidade de realizar pesquisas de usuários do GitHub e retornar algumas informações, como: Nome, login e localização.
 Após clicar no usuário, é aberta uma tela com mais informações de usuário e uma lista com todos os repositórios públicos.
