@@ -63,7 +63,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #daa520;
 `;

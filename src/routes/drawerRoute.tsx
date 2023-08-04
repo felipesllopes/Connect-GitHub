@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Route from ".";
+import StackRoute from "./stackRoute";
 import React from "react";
 
 const Drawer = createDrawerNavigator();
@@ -22,7 +22,7 @@ const DrawerRoute: React.FC = () => {
     >
       <Drawer.Screen
         name="Route"
-        component={Route}
+        component={StackRoute}
         options={{ headerShown: false, title: "Início" }}
       />
     </Drawer.Navigator>

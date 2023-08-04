@@ -13,7 +13,6 @@ type UserDetailsRouteProp = RouteProp<
 >;
 
 const Profile: React.FC = () => {
-  
   const route = useRoute<UserDetailsRouteProp>();
   const navigation = useNavigation();
   const { user } = route.params;
@@ -87,13 +86,13 @@ const Profile: React.FC = () => {
   );
 };
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #24292e;
 `;
 
 const ContainerUser = styled.View`
-  background-color: #f5fffa;
+  background-color: #fff;
   padding-bottom: 10px;
   border-bottom-width: 2px;
 `;
