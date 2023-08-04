@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Connect-GitHub",
+    "name": "HUBusca",
     "slug": "Connect-GitHub",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#24292e"
     },
     "assetBundlePatterns": [
       "**/*"

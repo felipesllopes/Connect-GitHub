@@ -37,7 +37,7 @@ const Container = styled.TouchableOpacity`
   flex-wrap: wrap;
   align-items: center;
   border-width: 2px;
-  background-color: aliceblue;
+  background-color: white;
 `;
 
 const UserPhoto = styled.Image`

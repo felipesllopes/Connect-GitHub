@@ -37,7 +37,7 @@ const ReposList: React.FC<any> = ({ item }) => {
 export default ReposList;
 
 const Container = styled.TouchableOpacity`
-  background-color: #f5fffa;
+  background-color: #DAA520;
   margin: 10px 10px 0 10px;
   border-radius: 20px;
   padding: 10px;

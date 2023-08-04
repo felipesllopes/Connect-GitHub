@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <Container>
       <DrawerBack />
       <Header>
-        <Logo source={require("../../assets/logo.png")} />
+        <Logo source={require("../../assets/logo3.png")} resizeMode="contain" />
 
         <BoxInput>
           <Input
@@ -49,11 +49,11 @@ const Home: React.FC = () => {
       </Header>
 
       {user.length != 0 ? (
-        <View>
+        <View style={{ elevation: 10 }}>
           <ContainerUser user={user} />
         </View>
       ) : loading ? (
-        <Loading size={40} color={"blue"} />
+        <Loading size={40} color={'#000'}/>
       ) : (
         <NotFound>{msgErro}</NotFound>
       )}
@@ -65,7 +65,7 @@ export default Home;
 
 const Container = styled.View`
   flex: 1;
-  background-color: #f5fffa;
+  background-color: #daa520;
 `;
 
 const Header = styled.View`
@@ -75,11 +75,10 @@ const Header = styled.View`
 `;
 
 const Logo = styled.Image`
-  height: 160px;
-  width: 160px;
+  height: 62px;
+  width: 300px;
   align-self: center;
-  margin: 10px;
-  margin-bottom: 30px;
+  margin: 60px 0;
 `;
 
 const BoxInput = styled.View`
@@ -100,7 +99,7 @@ const Button = styled.TouchableOpacity`
 `;
 
 const Loading = styled.ActivityIndicator`
-  margin-top: 20px;
+  margin-top: 30px;
 `;
 
 const NotFound = styled.Text`
