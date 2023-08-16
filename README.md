@@ -19,4 +19,16 @@ Ao ser clicado no repositório, é redirecionado diretamente para este repositó
 - [docs.github.com](https://docs.github.com/pt/rest/users?apiVersion=2022-11-28)
 
 
-Você pode testar o projeto fazendo o downloado do aquivo: [APK](https://drive.google.com/file/d/18KH9CCdcZuadiZJygP7y-dUJfEMfk8td/view?usp=drive_link)
+### Bibliotecas usadas: 
+
+- [React-Navigation](https://reactnavigation.org/docs/getting-started/)
+- [Stack-Navigation](https://reactnavigation.org/docs/stack-navigator)
+- [Botton-Tab-Navigation](https://reactnavigation.org/docs/bottom-tab-navigator)
+- [Drawer-Navigation](https://reactnavigation.org/docs/drawer-navigator)
+- [Axios](https://www.npmjs.com/package/react-native-axios)
+- [Styled-Components](https://styled-components.com/docs/basics)
+- [Date-fns](https://www.npmjs.com/package/date-fns)
+
+## Clique aqui para baixar o projeto:
+[![APK-Download](https://img.shields.io/badge/APK_Download-07C160?style=for-the-badge&logo=download&logoColor=white)](https://drive.google.com/file/d/1b5cINOgvWbs3TLkoiTNBkFtV5t2yJPlc/view?usp=sharing
+)
